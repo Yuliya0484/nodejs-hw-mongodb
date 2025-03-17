@@ -2,7 +2,7 @@ import pino from 'pino-http';
 import cors from 'cors';
 import { getEnvVar } from './utils/getEnvVar.js';
 import express from 'express';
-import Contact from './models/contact.js';
+//import Contact from './models/contact.js';
 import { getContacts, getContactById } from './services/contacts.js';
 
 const PORT = process.env.PORT || getEnvVar('PORT');
