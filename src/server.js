@@ -43,7 +43,6 @@ export const setupServer = () => {
       data: contact,
       status: 200,
     });
-    return;
   });
 
   app.use('*', (req, res, next) => {
