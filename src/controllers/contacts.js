@@ -8,12 +8,18 @@ import {
   patchContact,
 } from '../services/contacts.js';
 
-export const getContactsController = async (req, res, next) => {
-  const contacts = await getContacts();
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+
+export const getContactsController = async (req, res) => {
+  const { page, perPage } = parsePaginationParams(req.query);
+  const response = await getContacts({
+    page,
+    perPage,
+  });
   res.json({
     status: 200,
     message: 'Successfully found contacts!',
-    data: contacts,
+    data: response,
   });
 };
 
