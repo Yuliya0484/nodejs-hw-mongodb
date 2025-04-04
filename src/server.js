@@ -10,13 +10,6 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
 const PORT = process.env.PORT || getEnvVar('PORT');
 
-export const startServer = () => {
-  const app = express();
-  app.use(express.json());
-  app.use(cors());
-  app.use(cookieParser());
-};
-
 export const setupServer = () => {
   const app = express();
 
@@ -28,7 +21,7 @@ export const setupServer = () => {
   );
 
   app.use(cors());
-
+  app.use(cookieParser());
   app.use(
     pino({
       transport: {
