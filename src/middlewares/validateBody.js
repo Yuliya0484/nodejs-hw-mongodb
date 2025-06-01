@@ -8,8 +8,8 @@ export function validateBody(schema) {
       });
       next();
     } catch (error) {
-      const errors = error.details.map((detail) => detail.message);
-      next(new createHttpError.BadRequest(errors));
+      const errors = error.details.map((detail) => detail.message).join(', ');
+      next(createHttpError(400, errors));
     }
   };
 }
