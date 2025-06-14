@@ -1,32 +1,36 @@
-const parseSortBy = (value) => {
-  if (typeof value === 'undefined') {
-    return '_id';
-  }
-  const keys = ['_id', 'name', 'contactType', 'phoneNumber', 'email'];
+import { SORT_ORDER } from '../constants/index.js';
 
-  if (keys.includes(value) !== true) {
-    return '_id';
-  }
-  return value;
+const parseSortOrder = (sortOrder) => {
+  const isKnownOrder = [SORT_ORDER.ASC, SORT_ORDER.DESC].includes(sortOrder);
+  if (isKnownOrder) return sortOrder;
+  return SORT_ORDER.ASC;
 };
 
-const parseSortOrder = (value) => {
-  if (typeof value === 'undefined') {
-    return 'asc';
+const parseSortBy = (sortBy) => {
+  const keysOfStudent = [
+    '_id',
+    'name',
+    'phoneNumber',
+    'email',
+    'isFavourite',
+    'contactType',
+  ];
+
+  if (keysOfStudent.includes(sortBy)) {
+    return sortBy;
   }
-  if (value !== 'asc' && value !== 'desc') {
-    return 'asc';
-  }
-  return value;
+
+  return '_id';
 };
 
 export const parseSortParams = (query) => {
-  const { sortBy, sortOrder } = query;
-  const parsedSortBy = parseSortBy(sortBy);
+  const { sortOrder, sortBy } = query;
+
   const parsedSortOrder = parseSortOrder(sortOrder);
+  const parsedSortBy = parseSortBy(sortBy);
 
   return {
-    sortBy: parsedSortBy,
     sortOrder: parsedSortOrder,
+    sortBy: parsedSortBy,
   };
 };
