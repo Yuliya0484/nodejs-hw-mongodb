@@ -1,37 +1,55 @@
 import express from 'express';
 
+import { validateBody } from '../middlewares/validateBody.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import {
-  registerUserController,
+  loginUserSchema,
+  registerUserSchema,
+  requestResetEmailSchema,
+  resetPasswordSchema,
+} from '../validation/auth.js';
+import {
   loginUserController,
   logoutUserController,
   refreshUserSessionController,
+  registerUserController,
+  requestResetEmailController,
+  resetPasswordController,
 } from '../controllers/auth.js';
-import { registerUserSchema, loginUserSchema } from '../validation/auth.js';
-import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import { validateBody } from '../middlewares/validateBody.js';
-import { authenticate } from '../middlewares/authenticate.js';
-import { getContactsController } from '../controllers/contacts.js';
 
 const router = express.Router();
+const jsonParser = express.json();
 
 router.post(
   '/register',
+  jsonParser,
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
 );
 
 router.post(
   '/login',
+  jsonParser,
   validateBody(loginUserSchema),
   ctrlWrapper(loginUserController),
 );
 
-router.post('/logout', ctrlWrapper(logoutUserController));
-
 router.post('/refresh', ctrlWrapper(refreshUserSessionController));
 
-router.use(authenticate);
+router.post('/logout', ctrlWrapper(logoutUserController));
 
-router.get('/', ctrlWrapper(getContactsController));
+router.post(
+  '/send-reset-email',
+  jsonParser,
+  validateBody(requestResetEmailSchema),
+  ctrlWrapper(requestResetEmailController),
+);
+
+router.post(
+  '/reset-pwd',
+  jsonParser,
+  validateBody(resetPasswordSchema),
+  ctrlWrapper(resetPasswordController),
+);
 
 export default router;
