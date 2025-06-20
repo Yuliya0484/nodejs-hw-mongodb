@@ -14,7 +14,7 @@
       "url": "http://127.0.0.1:3000"
     },
     {
-      "url": "https://onrender.com!!! add new"
+      "url": "https://nodejs-hw-mongodb-k6kx.onrender.com"
     }
   ],
   "tags": [
@@ -968,7 +968,7 @@
           "photo": {
             "description": "Link to contact's photo",
             "type": "string",
-            "example": "https://cloudinary.com"
+            "example": "https://res.cloudinary.com/dowm2164o/image/upload/v1750427160/gabgyoc27l0gfc7kzjzs.jpg"
           }
         }
       }
